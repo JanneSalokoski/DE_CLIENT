@@ -1,0 +1,15 @@
+{
+  "name": "distance-election-client",
+  "version": "0.0.0",
+  "description": "A super lightweight but secure online elections platform",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "distance-election-host"
+  },
+  "author": "Janne Salokoski <salokoski.janne@gmail.com>",
+  "license": "MIT"
+}
