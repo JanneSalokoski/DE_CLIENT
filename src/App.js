@@ -1,79 +1,91 @@
 import React from 'react';
 import { nanoid, customAlphabet } from 'nanoid';
 
+import './App.css';
+
 const config = {
-	url: 'ws://localhost:3000',
-	clientID: nanoid(10),
+	//url: 'ws://thawing-sands-14294.herokuapp.com/',
+	url: 'ws://localhost:8000',
+	version: '1.0.0'
 };
 
 
 const StatusLine = (props) => {
-	return (
+	return props.enabled ? (
 		<div className='StatusLine'>
-			<h2>Status</h2>
-			<div className={`StatusItem ${props.connected}`} id='connected'>
-				Connected to server: {props.connected ? 'yes' : 'no'}
+		<div>
+			<div className={`StatusItem Connected ${props.connected ? 'online' : 'offline'}`} id='connected'>
+				{props.connected ? 'Online' : 'Offline'}
 			</div>
-			<div className={`StatusItem`} id='connectionID'>
-				ConnectionID: {props.connectionID}
+			<div className={`StatusItem ConnectionID ${props.connected ? 'enabled' : 'disabled'}`}>
+				{props.connectionID}
 			</div>
-			<div className={`StatusItem ${props.clientRegistered}`} id='voterRegistered'>
-				Connected to host: {props.hostID}
-			</div>
-			<div className={`StatusItem ${props.voterRegistered}`} id='voterRegistered'>
-				Registered as voter: {props.voterRegistered ? 'yes' : 'no'}
-			</div>
-			<div className={`StatusItem`} id='voterID'>
-				VoterID: {props.voterID}
-			</div>
-			<div className={`StatusItem ${props.voteStatus}`} id='voteStatus'>
-				Vote given: {props.voteStatus ? 'yes' : 'no'}
-			</div>
-			<div className={`StatusItem ${props.electionStatus}`} id='electionStatus'>
-				Election: {props.electionStatus}
+			<div className='StatusItem ServerAddress'>
+				{config.url}
 			</div>
 		</div>
-	);
+		<div>
+			<div className={`StatusItem  HostConnected ${props.clientRegistered ? 'enabled' : 'disabled'}`} id='voterRegistered'>
+				Palvelin
+			</div>
+			<div className={`StatusItem HostID ${props.clientRegistered ? 'enabled' : 'disabled'}`} id='voterRegistered'>
+				{props.hostID}
+			</div>
+
+			<div className={`StatusItem Verified ${props.voterRegistered ? 'enabled' : 'disabled'}`} id='voterRegistered'>
+				Varmistettu
+			</div>
+			<div className={`StatusItem VoteGiven ${props.voteStatus ? 'enabled' : 'disabled'}`} id='voteStatus'>
+				Ääni käsitelty
+			</div>
+			<div className={`StatusItem VoterID ${props.voteStatus ? 'enabled' : 'disabled'}`} id='voterID'>
+				{props.voterID}
+			</div>
+		</div>
+		</div>
+	) : '';
 }
 
 const ConnectionView = (props) => {
 	const [hostID, setHostID] = React.useState('');
 
-	return (
+	return props.enabled ? (
 		<div className='ConnectionView'>
-			<h2>Connect to a host</h2>
+			<h2>Yhdistä palvelimeen</h2>
+			<p className='InfoText'>Liity palvelimelle syöttämällä palvelimen tunniste</p>
 			<form onSubmit={(event) => {
 				event.preventDefault();
 				props.handleSubmit(hostID);
 			}}>
-				<label htmlFor='hostID'>Host ID: </label>
+				<label htmlFor='hostID'>Palvelimen tunniste: </label>
 				<input type='text' id='hostID'
 					value={hostID}
 					onChange={(event) => setHostID(event.target.value)}
 				/>
-				<input type='submit' value='Submit!' />
+				<input type='submit' value='Yhdistä' />
 			</form>
 		</div>
-	);
+	) : '';
 }
 
 const VoterRegistration = (props) => {
 	const [newVoterName, setNewVoterName] = React.useState("");
 
-	return (
+	return props.enabled ? (
 		<div className='VoterRegistration'>
-			<h2>Register as a voter</h2>
-			<label>Name: </label>
+			<h2>Rekisteröidy äänestäjäksi</h2>
+			<p className='InfoText'>Rekisteröidy äänestäjäksi omalla nimelläsi</p>
+			<label>Nimi: </label>
 			<input type="text"
 				value={newVoterName}
 				onChange={(event) => setNewVoterName(event.target.value)}
 			/>
 			<input type='button'
-				value='Submit!'
+				value='Rekisteröidy'
 				onClick={(event) => props.handleSubmit(newVoterName)}
 			/>
 		</div>
-	);
+	) : '';
 }
 
 const VoteInterface = (props) => {
@@ -84,7 +96,7 @@ const VoteInterface = (props) => {
 		return candidates.map(candidate => (
 			<li id={candidate.id} key={candidate.id}>
 				<label htmlFor={candidate.id}>
-					<span>{candidate.id}: </span>
+					<span className='candidateID'>{candidate.id} </span>
 					<span>{candidate.name}</span>
 				</label>
 				<input type='radio' name='candidate'
@@ -97,33 +109,36 @@ const VoteInterface = (props) => {
 		));
 	}
 
-	return (
+	return props.enabled ? (
 		<div className='VoteInterface'>
-			<h2>Vote</h2>
-			<form className='CandidateList'
-				onSubmit={(event) => {
-					event.preventDefault(); // Is it really 2020?
-					props.handleSubmit(selectedOption);
-				}}
-			>
+			<h2>Äänestä</h2>
+			<div className='CandidateList'>
 				<ol>
 					{generateCandidateItems(props.candidates)}
 				</ol>
-				<input type='submit'
-					value='Vote'
-				/>
-			</form>
+			</div>
+			<label htmlFor='vote'>Ännestä valitsemaasi ehdokasta: </label>
+			<input type='submit' id='vote'
+				value='Äänestä'
+				onClick={(event) => {
+					props.handleSubmit(selectedOption);
+				}}
+			/>
 		</div>
-	);
+	) : '';
 }
 
-const ElectionResults = (props) => {
-	return (
-		<div className='ElectionResults'>
-			<h2>Election results</h2>
-			<p>No results available</p>
+const GoodbyeMessage = (props) => {
+	return props.enabled ? (
+		<div className='GoodbyeMessage'>
+			<p>
+				Kiitos äänestäsi! Vaali on päättynyt ja vaalitulos on selvillä vaalin järjestäjällä.
+			</p> 
+			<p>
+				Pidä oma äänitunnisteesi <span className='voterID'>{props.voterID}</span> tallessa. Vaalituloksesta voit tarkistaa, menikö kaikki vaalissa oikein. Osallistuaksesi uuteen vaaliin, voit päivittää tämän sivun! 
+			</p>
 		</div>
-	);
+	) : '';
 }
 
 
@@ -134,7 +149,7 @@ export default () => {
 	const [hostID, setHostID] = React.useState('');
 	const [voterID, setVoterID] = React.useState('');
 	const [voterRegistered, setVoterRegistered] = React.useState(false);
-	const [electionStatus, setElectionStatus] = React.useState('not running');
+	const [electionStatus, setElectionStatus] = React.useState(false);
 	const [voteStatus, setVoteStatus] = React.useState(false);
 	
 	const [candidates, setCandidates] = React.useState([]);
@@ -224,9 +239,11 @@ export default () => {
 
 	return (
 		<div className='App'>
-			<StatusLine
+			<h1 className='title'>DE_CLIENT [{config.version}]</h1>
+			<StatusLine enabled={true}
 				connected={connected}
 				connectionID={connectionID}
+				clientRegistered={registered}
 				hostID={hostID}
 				voterID={voterID}
 				voterRegistered={voterRegistered}
@@ -234,18 +251,20 @@ export default () => {
 				electionStatus={electionStatus}
 			/>
 
-			<ConnectionView 
+			<ConnectionView enabled={!registered}
 				handleSubmit={connectionHandler}
 			/>
 
-			<VoterRegistration 
+			<VoterRegistration enabled={!voterRegistered}
 				handleSubmit={newVoterHandler}
 			/>
 
-			<VoteInterface
+			<VoteInterface enabled={!voteStatus && electionStatus}
 				candidates={candidates}
 				handleSubmit={voteHandler}
 			/>
+
+			<GoodbyeMessage enabled={!electionStatus && voteStatus} voterID={voterID}/>
 		</div>
 	);
 }

@@ -1,0 +1,486 @@
+:root {
+	--padding: 0.5rem;
+
+	--color-white: #e5e9f0;
+
+	--color-gray: #4c566a;
+	--color-gray-darker: #434c5e;
+
+
+	--color-polar-night-nord0: #2e3440;
+	--color-polar-night-nord1: #3b4252;
+	--color-polar-night-nord2: #434c5e;
+	--color-polar-night-nord3: #4c566a;
+
+	--color-snowstorm-nord4: #d8dee9;
+	--color-snowstorm-nord5: #e5e9f0;
+	--color-snowstorm-nord6: #eceff4;
+
+	--color-frost-nord7: #8fbcbb;
+	--color-frost-nord8: #88c0d0;
+	--color-frost-nord9: #81a1c1;
+	--color-frost-nord10: #5e81ac;
+
+	--color-aurora-nord11: #bf616a;
+	--color-aurora-nord12: #d08770;
+	--color-aurora-nord13: #ebcb8b;
+	--color-aurora-nord14: #a3be8c;
+	--color-aurora-nord15: #b48ead;
+
+
+
+	--border: 1px solid var(--color-nord5);
+	--border-radius: 2px;
+}
+
+input[type=text], input[type=button] {
+-webkit-appearance: none;
+-webkit-border-radius: 0;
+}
+
+html, body, * {
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	--local-padding: calc(var(--padding) * 2);
+	padding: var(--local-padding);
+
+	width: calc(100vw - var(--local-padding) * 2);
+	height: calc(100vh - var(--local-padding) * 2);
+
+	max-width: 40em;
+
+	margin-left: auto;
+	margin-right: auto;
+
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    line-height: 125%;
+
+    background-color: var(--color-snowstorm-nord5);
+    color: var(--color-polar-night-nord0);
+}
+
+h1, h2, h3 {
+	font-family: 'IBM Plex Sans', sans-serif;
+	font-weight: 700;
+
+	padding: 0px;
+	margin: 0px;
+
+	margin-bottom: 0.5rem;
+}
+
+h3 {
+	font-weight: 300;
+	text-transform: uppercase;
+	margin-top: 1rem;
+
+
+	font-size: 1rem;
+}
+
+h2 {
+	margin-bottom: 1rem;
+
+	text-transform: uppercase;
+
+	font-size: 1.5rem;
+}
+
+h1 {
+	margin-top: 0rem;
+	margin-bottom: 1.5rem;
+
+	font-size: 2rem;
+
+	text-align: center;
+}
+
+
+table, th, td {
+  border: 1px solid var(--color-polar-night-nord3);
+  border-collapse: collapse;
+  padding: 0.5rem;
+
+  text-align: center;
+}
+
+table {
+	width: 100%;
+	border-radius: var(--border-radius);
+	table-layout:fixed;
+}
+
+tr {
+	border-radius: var(--border-radius);
+}
+
+thead tr {
+	background-color: var(--color-frost-nord7)
+}
+
+
+span.candidateID {
+	font-family: 'IBM Plex Mono', monospace;	
+	font-size: 0.75rem;
+
+	padding: 0.25rem;
+	margin-right: 0.5rem;
+	display: inline-block;
+
+	background-color: var(--color-frost-nord7);
+	color: var(--color-polar-night-nord3);
+
+	border: 1px solid var(--color-polar-night-nord3);
+	border-radius: var(--border-radius);
+}
+
+
+div.StatusLine {
+	text-align: center;
+}
+
+div.StatusLine > div:not(:first-of-type) {
+	margin-top: 0.5rem;
+}
+
+div.StatusItem {
+	font-family: 'IBM Plex Mono', monospace;	
+	font-size: 0.75rem;
+
+	padding: 0.25rem;
+	margin-right: 0.5rem;
+	display: inline-block;
+
+	background-color: var(--color-snowstorm-nord4);
+	color: var(--color-polar-night-nord3);
+
+	border: 1px solid var(--color-polar-night-nord3);
+	border-radius: var(--border-radius);
+}
+
+	div.StatusItem.Connected.offline {
+		background-color: var(--color-aurora-nord11);
+		color: var(--color-snowstorm-nord4);
+	}
+
+	div.StatusItem.Connected.online {
+		background-color: var(--color-aurora-nord14);
+	}
+
+	div.StatusItem.ConnectionID {
+		background-color: var(--color-frost-nord7);
+	}
+
+	div.StatusItem.ConnectionID.disabled {
+		display: none;
+	}
+
+
+	div.StatusItem.HostConnected.enabled {
+		background-color: var(--color-aurora-nord14);
+	}
+
+	div.StatusItem.HostConnected.disabled {
+		background-color: var(--color-aurora-nord11);
+		color: var(--color-snowstorm-nord4);
+	}
+
+	div.StatusItem.HostID {
+		background-color: var(--color-frost-nord7);
+	}
+
+	div.StatusItem.HostID.disabled {
+		display: none;
+	}
+
+
+	div.StatusItem.Verified.enabled {
+		background-color: var(--color-aurora-nord14);
+	}
+
+	div.StatusItem.Verified.disabled {
+		background-color: var(--color-aurora-nord11);
+		color: var(--color-snowstorm-nord4);
+	}
+
+	div.StatusItem.VoterID {
+		background-color: var(--color-frost-nord7);
+	}
+
+	div.StatusItem.VoterID.disabled {
+		display: none;
+	}
+
+
+	div.StatusItem.VoteGiven.enabled {
+		background-color: var(--color-aurora-nord14);
+	}
+
+	div.StatusItem.VoteGiven.disabled {
+		background-color: var(--color-aurora-nord11);
+		color: var(--color-snowstorm-nord4);
+	}
+
+
+div.StatusLine {
+	margin-bottom: 2rem;
+}
+
+div.ConnectionView, div.VoterRegistration, div.VoteInterface {
+	border: 1px solid var(--color-polar-night-nord3);
+	border-radius: var(--border-radius);
+
+	padding: 1rem;
+	margin-bottom: 1rem;
+
+	background-color: var(--color-snowstorm-nord6);
+}
+
+
+div.CandidateList {
+	background-color: var(--color-snowstorm-nord4);
+
+	margin-bottom: 0.5rem;
+
+	border: 1px solid var(--color-polar-night-nord3);
+	border-radius: var(--border-radius);
+}
+
+div.CandidateList li {
+	padding: 0.5rem;
+}
+
+div.CandidateList li:nth-child(even) {
+	background-color: var(--color-snowstorm-nord5)
+}
+
+div.CandidateList li:nth-child(even) span.CandidateID {
+	background-color: var(--color-frost-nord9);
+}
+
+div.CandidateList input[type=radio] {
+	margin-left: 1ch;
+}
+
+div.CandidateList span.CandidateID {
+	font-family: 'IBM Plex Mono', monospace;	
+	font-size: 0.75rem;
+
+	padding: 0.25rem;
+	margin-left: 1ch;
+	display: inline-block;
+
+	background-color: var(--color-frost-nord7);
+	color: var(--color-polar-night-nord3);
+
+	border: 1px solid var(--color-polar-night-nord3);
+	border-radius: var(--border-radius);
+}
+
+div.CandidateList .InfoText {
+	display: inline-block;
+	padding: 0.5rem;
+
+	width: calc(100% - 1rem);
+
+	text-align: center;
+}
+
+div.CandidateView div.NewCandidate.disabled {
+	display: none;
+}
+
+
+div.GoodbyeMessage {
+	text-align: center;
+	line-height: 1.5em;
+}
+
+div.GoodbyeMessage .voterID {
+	font-family: 'IBM Plex Mono', monospace;	
+	font-size: 0.75rem;
+
+	padding: 0.25rem;
+	display: inline-block;
+
+	line-height: 1rem;
+
+	background-color: var(--color-frost-nord7);
+	color: var(--color-polar-night-nord3);
+
+	border: 1px solid var(--color-polar-night-nord3);
+	border-radius: var(--border-radius);
+}
+
+
+ul, ol {
+	list-style-position: inside;
+	list-style-type: none;
+}
+
+li:last-child {
+	margin-bottom: 0px;
+}
+
+
+
+
+
+div.VoterList {
+	background-color: var(--color-snowstorm-nord4);
+
+	margin-bottom: 0.5rem;
+
+	border: 1px solid var(--color-polar-night-nord3);
+	border-radius: var(--border-radius);
+}
+
+div.VoterList li {
+	padding: 0.5rem;
+}
+
+div.VoterList li:nth-child(even) {
+	background-color: var(--color-snowstorm-nord5)
+}
+
+div.VoterList li:nth-child(even) span.CandidateID {
+	background-color: var(--color-frost-nord9);
+}
+
+div.VoterList span.VoterID {
+	font-family: 'IBM Plex Mono', monospace;	
+	font-size: 0.75rem;
+
+	padding: 0.25rem;
+	margin-left: 1ch;
+	display: inline-block;
+
+	background-color: var(--color-frost-nord7);
+	color: var(--color-polar-night-nord3);
+
+	border: 1px solid var(--color-polar-night-nord3);
+	border-radius: var(--border-radius);
+}
+
+div.VoterList input[type=button] {
+	margin-left: 1ch;
+}
+
+div.VoterList input.AcceptButton {
+	background-color: var(--color-aurora-nord14);	
+	color: var(--color-polar-night-nord3);
+}
+
+div.VoterList input.RemoveButton {
+	background-color: var(--color-aurora-nord11);	
+}
+
+div.VoterList .InfoText {
+	display: inline-block;
+	padding: 0.5rem;
+
+	width: calc(100% - 1rem);
+
+	text-align: center;
+}
+
+
+
+
+div.ElectionControls {
+
+}
+
+div.ElectionControls input.StartButton {
+	background-color: var(--color-aurora-nord14);
+	color: var(--color-polar-night-nord3);
+}
+
+div.ElectionControls input.EndButton {
+	background-color: var(--color-aurora-nord11);
+}
+
+div.ElectionControls input.disabled {
+	background-color: var(--color-snowstorm-nord4);
+	color: var(--color-polar-night-nord3);
+}
+
+div.ElectionStatistics.disabled {
+	display: none;
+}
+
+
+div.ElectionResults {
+
+}
+
+div.ElectionResults span.CandidateID, div.ElectionResults span.VoteID{
+	font-family: 'IBM Plex Mono', monospace;	
+	font-size: 0.75rem;
+
+	padding: 0.25rem;
+	margin-left: 1ch;
+	margin-top: 1ch;
+	margin-bottom: 1ch;
+	display: inline-block;
+
+	background-color: var(--color-frost-nord9);
+	color: var(--color-polar-night-nord3);
+
+	border: 1px solid var(--color-polar-night-nord3);
+	border-radius: var(--border-radius);
+}
+
+.InfoText {
+	font-style: italic;
+	color: var(--color-polar-night-nord3);
+	margin-bottom: 0.25rem;
+}
+
+
+/* Reset inputs */
+input {
+	border:none;
+    background-image:none;
+    background-color:transparent;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+input {
+	font-family: 'IBM Plex Mono', monospace;	
+	font-size: 0.75rem;
+
+	padding: 0.25rem;
+	display: inline-block;
+
+	background-color: var(--color-snowstorm-nord4);
+	color: var(--color-polar-night-nord3);
+
+	border: 1px solid var(--color-polar-night-nord3);
+	border-radius: var(--border-radius);
+}
+
+input:not(:first-of-type) {
+	margin-left: 1ch;
+}
+
+input[type=button], input[type=submit] {
+	background-color: var(--color-frost-nord10);
+	color: var(--color-snowstorm-nord5);
+}
+
+input[type=button]:hover, input[type=submit]:hover {
+	color: var(--color-snowstorm-nord6);
+	cursor: pointer;
+}
+
+input[type=button]:active, input[type=submit]:active {
+	background-color: var(--color-frost-nord9);
+	border-color: var(--color-polar-night-nord1);
+}
+
